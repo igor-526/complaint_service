@@ -2,6 +2,5 @@
 __pycache__/
 .idea/
 .env
-n8n_data/*
 src/db_file/complaints.db
 src/logs/*
