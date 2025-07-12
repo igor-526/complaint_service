@@ -31,7 +31,7 @@
 
 - 📝 **CRUD операции** с жалобами
 - ✉️ **Telegram-уведомления** при новых жалобах
-- **Добавление записей в GoogleSheets** при новых жалобах
+- 📥 **Добавление записей в GoogleSheets** при новых жалобах
 - 🐳 **Docker-контейнеризация**
 - 📚 **Автодокументация** (Swagger/ReDoc)
 
@@ -49,9 +49,9 @@
 
 ---
 
-## Тестирование проекта
-#### API Endpoint: https://complaint.dotw-soft.ru/api/v1/
-#### [n8n](https://complaintn8n.dotw-soft.ru/) (для доступа напишите в Telegram в шапке проекта)
+## 🧪 Тестирование проекта
+#### 🌐🔗 API Endpoint: https://complaint.dotw-soft.ru/api/v1/
+#### 🤖✉️ [n8n](https://complaintn8n.dotw-soft.ru/) (для доступа напишите в Telegram в шапке проекта)
 
 ---
 
@@ -80,7 +80,7 @@ YA_CLOUD_OAUTH_TOKEN=your_oauth_token  # OAuth-токен для Yandex Cloud AP
 YA_CLOUD_CATALOG_ID=b1gxxxxxxxxxxxxxxx  # ID каталога в Yandex Cloud
 
 # ========================
-#  DaData Service
+# 📇 DaData Service
 # ========================
 DADATA_API_KEY="your_api_key"  # API Key сервиса DaData
 
@@ -123,17 +123,17 @@ docker compose up
 ---
 
 ## Документация API и тестирование сервиса
-#### [Swagger UI](https://complaint.dotw-soft.ru/docs)
-#### [ReDoc](https://complaint.dotw-soft.ru/redoc)
+#### 📄 [Swagger UI](https://complaint.dotw-soft.ru/docs)
+#### 📄 [ReDoc](https://complaint.dotw-soft.ru/redoc)
 
 ---
 
-## Дополнительно
-#### [Автоматизация](./docs/automatization.md)
-#### [Нагрузочное тестирование](./docs/loading_tests.md)
-#### [Получение OAuth токена Yandex](https://yandex.cloud/ru/docs/iam/operations/iam-token/create) (Платный сервис)
-#### [DaData](https://dadata.ru/api/) (Лимит бесплатных запросов)
-#### [Получение Telegram Bot Token](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)
-#### [Создание сервисного аккаунта Google](https://developers.google.com/identity/protocols/oauth2/service-account?hl=ru#creatinganaccount)
+## ➕ Дополнительно
+#### 🤖 [Автоматизация](./docs/automatization.md)
+#### 🏋️ [Нагрузочное тестирование](./docs/loading_tests.md)
+#### 🔑 [Получение OAuth токена Yandex](https://yandex.cloud/ru/docs/iam/operations/iam-token/create) (💰Платный сервис)
+#### 🆓 [DaData](https://dadata.ru/api/) (⚠️ Лимит бесплатных запросов)
+#### 🔐 [Получение Telegram Bot Token](https://core.telegram.org/bots/tutorial#obtain-your-bot-token)
+#### 👤 [Создание сервисного аккаунта Google](https://developers.google.com/identity/protocols/oauth2/service-account?hl=ru#creatinganaccount)
 
 
