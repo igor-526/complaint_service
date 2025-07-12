@@ -7,18 +7,19 @@ services:
     ports:
       - "${API_PORT}:8000"
     environment:
-      YA_CLOUD_IAM_TOKEN: ${YA_CLOUD_IAM_TOKEN}
       YA_CLOUD_OAUTH_TOKEN: ${YA_CLOUD_OAUTH_TOKEN}
       YA_CLOUD_CATALOG_ID: ${YA_CLOUD_CATALOG_ID}
       AI_COMPLAINT_CATEGORY_PROMT: ${AI_COMPLAINT_CATEGORY_PROMT}
       AI_COMPLAINT_SENTIMENT_PROMT: ${AI_COMPLAINT_SENTIMENT_PROMT}
       AI_SPAM_PROMT: ${AI_SPAM_PROMT}
+      DADATA_API_KEY: ${DADATA_API_KEY}
       HTTP_CONNECTION_TIMEOUT: ${HTTP_CONNECTION_TIMEOUT}
       HTTP_CONNECTION_RETRY_DELAY: ${HTTP_CONNECTION_RETRY_DELAY}
       HTTP_CONNECTION_RETRIES: ${HTTP_CONNECTION_RETRIES}
-    entrypoint: bash -c  "uvicorn app:app --host 0.0.0.0 --port 8000";
+    entrypoint: bash -c  "alembic upgrade head && uvicorn app:app --host 0.0.0.0 --port 8000";
     volumes:
-      - db_data:/src/db_file
+      - ./src/db_file:/src/db_file
+      - ./src/logs:/src/logs
     restart: unless-stopped
 
   n8n:
@@ -29,10 +30,14 @@ services:
       - N8N_BASIC_AUTH_ACTIVE=true
       - N8N_BASIC_AUTH_USER=${N8N_USER}
       - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD}
+      - N8N_AUTHENTICATION_DISABLED=true
       - N8N_HOST=localhost
       - N8N_PORT=5678
       - N8N_PROTOCOL=http
       - N8N_EDITOR_BASE_URL=http://localhost:5678
+      - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true
+      - N8N_RUNNERS_ENABLED=true
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
     volumes:
       - ./n8n_data:/home/node/.n8n
     restart: unless-stopped

@@ -1,11 +1,9 @@
-from database import async_engine
-
 from models.schemas import (ComplaintCategory,
                             ComplaintSentiment,
                             ComplaintStatus)
 
 from sqlalchemy import Column, DateTime, Enum, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.sql import func
 
 
@@ -22,23 +20,6 @@ class ComplaintDB(Base):
     sentiment = Column(Enum(ComplaintSentiment),
                        default=ComplaintSentiment.UNKNOWN)
     category = Column(Enum(ComplaintCategory), default=ComplaintCategory.OTHER)
-
-
-async def create_db() -> None:
-    """Создаёт все модели в базе данных.
-
-    Returns:
-        None
-    """
-    async with async_engine.begin() as conn:
-        await conn.run_sync(ComplaintDB.metadata.create_all)
-
-
-async def drop_db() -> None:
-    """Удаляет все модели из базы данных.
-
-    Returns:
-        None
-    """
-    async with async_engine.begin() as conn:
-        await conn.run_sync(ComplaintDB.metadata.drop_all)
+    ip_address = Column(String(15), nullable=True)
+    geo_country = Column(String(50), nullable=True)
+    geo_city = Column(String(50), nullable=True)

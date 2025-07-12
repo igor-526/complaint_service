@@ -3,7 +3,12 @@ from typing import List, Optional
 
 from database import async_session_maker
 
-from fastapi import APIRouter, BackgroundTasks, HTTPException, Query, status
+from fastapi import (APIRouter,
+                     BackgroundTasks,
+                     HTTPException,
+                     Query,
+                     Request,
+                     status)
 
 from models.models import ComplaintDB
 from models.schemas import (ComplaintCategory,
@@ -37,7 +42,8 @@ router = APIRouter(prefix="/api/v1", tags=["Complaints"])
 )
 async def create_complaint(
         complaint: ComplaintCreate,
-        background_tasks: BackgroundTasks
+        background_tasks: BackgroundTasks,
+        request: Request
 ):
     spam_classifier = YandexCloudClassifier(
         input_text=complaint.text,
@@ -49,9 +55,11 @@ async def create_complaint(
     spam_result = await spam_classifier.y_cloud_classify_text()
     if spam_result == "спам":
         raise HTTPException(status_code=400, detail="В запросе обнаружен спам")
+    ip_address = request.client.host
     db_complaint = ComplaintDB(
         text=complaint.text,
         category=complaint.category,
+        ip_address=ip_address,
     )
     async with async_session_maker() as session:
         session.add(db_complaint)
@@ -73,29 +81,29 @@ async def list_complaints(
         category: Optional[ComplaintCategory] = Query(
             None,
             description="Фильтр по категории",
-            example="техническая"
+            examples=["техническая", "оплата", "другое"]
         ),
         status: Optional[ComplaintStatus] = Query(
             None,
             description="Фильтр по статусу",
-            example="open"
+            examples=["open", "closed"]
         ),
         sentiment: Optional[ComplaintSentiment] = Query(
             None,
             description="Фильтр по тональности",
-            example="2025-01-15T00:00:00"
+            examples=["positive", "neutral", "negative"]
         ),
         start_date: Optional[datetime] = Query(
             None,
             description="Начальная дата (включительно), "
                         "формат: YYYY-MM-DDTHH:MM:SS",
-            example="2025-01-15T00:00:00",
+            examples=["2025-01-15T00:00:00"],
         ),
         end_date: Optional[datetime] = Query(
             None,
             description="Конечная дата (включительно), "
                         "формат: YYYY-MM-DDTHH:MM:SS",
-            example="2025-01-20T00:00:00",
+            examples=["2025-01-20T00:00:00"],
         ),
         offset: int = Query(0, ge=0, description="Смещение (пагинация)"),
         limit: int = Query(50, ge=1, le=100, description="Лимит записей")

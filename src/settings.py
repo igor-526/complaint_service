@@ -19,3 +19,7 @@ HTTP_CONNECTION_RETRY_DELAY = float(os.environ.get(
     'HTTP_CONNECTION_RETRY_DELAY', 5
 ))
 HTTP_CONNECTION_RETRIES = int(os.environ.get('HTTP_CONNECTION_RETRIES', 5))
+
+DADATA_API_KEY = os.environ.get('DADATA_API_KEY')
+
+DATABASE_URL = "sqlite+aiosqlite:///db_file/complaints.db"

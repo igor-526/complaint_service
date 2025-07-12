@@ -32,7 +32,7 @@ class ComplaintCreate(BaseModel):
     category: ComplaintCategory = Field(default=ComplaintCategory.OTHER)
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "text": "Не приходит SMS-сообщение с кодом подтверждения",
                 "category": "техническая",
@@ -46,7 +46,7 @@ class ComplaintUpdate(BaseModel):
     status: Optional[ComplaintStatus] = Field(None)
 
     class Config:
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "text": "Не приходит SMS-сообщение с кодом подтверждения",
                 "category": "техническая",
@@ -62,10 +62,14 @@ class ComplaintResponse(BaseModel):
     timestamp: datetime
     sentiment: ComplaintSentiment | None
     category: ComplaintCategory
+    ip_address: str | None
+    geo_country: str | None
+    geo_city: str | None
+
 
     class Config:
         from_attributes = True
-        schema_extra = {
+        json_schema_extra = {
             "example": {
                 "id": 27,
                 "text": "Не приходит SMS-сообщение с кодом подтверждения",
@@ -73,5 +77,8 @@ class ComplaintResponse(BaseModel):
                 "timestamp": "2025-07-09T15:58:05",
                 "sentiment": "neutral",
                 "category": "техническая",
+                "ip_address": "178.252.97.31",
+                "geo_country": "Россия",
+                "geo_city": "Санкт-Петербург"
             }
         }
